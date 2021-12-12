@@ -22,3 +22,10 @@ Single project can use multiple contracts - one should be able to use innser too
 
 ### Tagging
 Select users - as well as original code owners - will be able to tag used patterns and add additional comments for blocks of code (think lyrics comments on [Genius](https://genius.com/Spice-genie-lyrics)
+
+
+## Solution
+### How to look for deployed contracts
+Whenever contract is deployed or upgraded - special system event is emitted: 
+- `flow.AccountContractAdded`
+- `flow.AccountContractUpdated`
