@@ -29,3 +29,8 @@ Select users - as well as original code owners - will be able to tag used patter
 Whenever contract is deployed or upgraded - special system event is emitted: 
 - `flow.AccountContractAdded`
 - `flow.AccountContractUpdated`
+
+
+## Prototype Stage Features
+### Manual Entry
+It should be possible to entry known addresses and contracts manually. It will be good to have this for a long standing contracts like FungibleToken and NonFungible tokens, which were added quite a long time ago.
