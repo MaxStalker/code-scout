@@ -23,6 +23,8 @@ Single project can use multiple contracts - one should be able to use innser too
 ### Tagging
 Select users - as well as original code owners - will be able to tag used patterns and add additional comments for blocks of code (think lyrics comments on [Genius](https://genius.com/Spice-genie-lyrics)
 
+### Lookup known transactions and script
+You can copy/paste hash of known transaction and get information about what's happening inside of it. Ensuring you that it's safe to sign it, for example.
 
 ## Solution
 ### How to look for deployed contracts
