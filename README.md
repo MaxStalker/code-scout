@@ -18,7 +18,7 @@ Often times you are looking for an address of deployed contract. If you don't ha
 
 ## Features
 ### Contract Grouping
-Single project can use multiple contracts - one should be able to use innser tools to group them together.
+Single project can use multiple contracts - one should be able to use inner tools to group them together.
 
 ### Tagging
 Select users - as well as original code owners - will be able to tag used patterns and add additional comments for blocks of code (think lyrics comments on [Genius](https://genius.com/Spice-genie-lyrics)
