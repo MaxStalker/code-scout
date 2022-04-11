@@ -7,5 +7,13 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Max Daunarovich",
-  "license": "ISC"
+  "license": "ISC",
+  "devDependencies": {
+    "esm": "^3.2.25",
+    "prettier": "^2.6.2"
+  },
+  "dependencies": {
+    "dotenv": "^16.0.0",
+    "graphql-request": "^4.2.0"
+  }
 }

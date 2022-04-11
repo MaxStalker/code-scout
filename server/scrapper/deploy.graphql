@@ -1,0 +1,14 @@
+fragment Edge on EventConnection {
+  edges {
+    node {
+      time
+      fields
+    }
+  }
+}
+
+query ContractDeployed {
+  events(first: 50, typeId: "flow.AccountContractAdded", ordering: Ascending) {
+    ...Edge
+  }
+}
