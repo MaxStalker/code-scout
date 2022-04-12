@@ -1,5 +1,6 @@
 import { GraphQLClient, request, gql } from "graphql-request";
 import dot from "dotenv";
+import {writeDB} from "./db";
 
 dot.config();
 
@@ -89,11 +90,8 @@ const mapEdges = (edge) => {
       }
 
       loops += 1;
-      if (loops > 5) {
-        stop = true;
-      }
     }
   }
 
-  console.log(events);
+  writeDB("./scrapper/events-contract-deployed.json", events)
 })();
