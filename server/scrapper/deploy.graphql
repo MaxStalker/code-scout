@@ -12,3 +12,9 @@ query ContractDeployed {
     ...Edge
   }
 }
+
+query ContractDeleted {
+  events(first: 50, typeId: "flow.AccountContractRemoved", ordering: Ascending) {
+    ...Edge
+  }
+}

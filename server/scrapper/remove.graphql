@@ -1,0 +1,14 @@
+fragment Edge on EventConnection {
+    edges {
+        node {
+            time
+            fields
+        }
+    }
+}
+
+query ContractDeleted {
+    events(first: 50, typeId: "flow.AccountContractRemoved", ordering: Ascending) {
+        ...Edge
+    }
+}

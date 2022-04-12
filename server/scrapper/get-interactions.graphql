@@ -1,0 +1,7 @@
+query Interactions{
+    contract(id: "A.a49cc0ee46c54bfb.MotoGPAdmin"){
+        interactions{
+           count
+        }
+    }
+}
