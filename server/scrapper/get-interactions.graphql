@@ -1,7 +1,5 @@
 query Interactions{
-    contract(id: "A.a49cc0ee46c54bfb.MotoGPAdmin"){
-        interactions{
-           count
-        }
+    contract(id: "A.abda6627c70c7f52.GeniaceNFT"){
+        interactionCount
     }
 }
