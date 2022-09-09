@@ -1,5 +1,5 @@
-import styles from "../../styles/Subpage.module.css";
 import { PrismaClient } from "@prisma/client";
+import styles from "../../styles/Subpage.module.css";
 
 export async function getServerSideProps(context) {
   const { address } = context.query;
