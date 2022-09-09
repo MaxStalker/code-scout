@@ -10,3 +10,9 @@
 .pill:last-child {
   margin-right: 0;
 }
+
+.link {
+  color: #2dddbc;
+  text-decoration: underline;
+  font-weight: bold;
+}

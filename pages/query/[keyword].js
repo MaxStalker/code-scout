@@ -51,11 +51,10 @@ export default function Query(props) {
     <>
       <h1>{keyword}</h1>
       {contracts?.map((contract) => {
-        console.log(contract);
         const { name, account, tags } = contract;
         const { address } = account;
         return (
-          <div>
+          <div key={name}>
             <p>
               {name} - {address}
             </p>
