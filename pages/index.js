@@ -1,4 +1,3 @@
-import useSWR from "swr";
 import Link from "next/link";
 import styles from "../styles/Home.module.css";
 import subStyles from "../styles/Subpage.module.css";
@@ -12,7 +11,7 @@ export default function Home() {
 
   const fetchContracts = () => {
     clearTimeout(timer.current);
-
+    setContracts([]);
     timer.current = setTimeout(async () => {
       const contracts = await fetcher(`/api/query?keyword=${keyword}`);
       setContracts(contracts);
