@@ -23,9 +23,12 @@ export default function Home() {
   }, [keyword]);
 
   const { container, link } = styles;
+  const inputClass =
+    "shadow-md bg-gray-30 border border-gray-300 text-gray-900 text-xl rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5";
   return (
-    <div className={container}>
+    <div className="container mx-auto p-8">
       <input
+        className={inputClass}
         type="text"
         onChange={(data) => {
           setKeyword(data.target.value);
@@ -36,7 +39,10 @@ export default function Home() {
         const { address } = account;
 
         return (
-          <div>
+          <div
+            key={`${name}-${address}`}
+            className=""
+          >
             <p>
               <Link href={`/account/${address}/${name}`}>
                 <a className={subStyles.link}>{name}</a>
