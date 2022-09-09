@@ -1,0 +1,12 @@
+.pill {
+  background-color: red;
+  padding: 5px 10px;
+  color: white;
+  border-radius: 20px;
+  margin-right: 10px;
+  font-size: 12px;
+}
+
+.pill:last-child {
+  margin-right: 0;
+}
