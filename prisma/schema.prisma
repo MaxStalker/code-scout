@@ -1,59 +1,63 @@
 generator client {
-  provider = "prisma-client-js"
+  provider        = "prisma-client-js"
   previewFeatures = ["referentialIntegrity"]
 }
 
 datasource db {
-  provider = "mysql"
-  url = env("DATABASE_URL")
+  provider             = "mysql"
+  url                  = env("DATABASE_URL")
   referentialIntegrity = "prisma"
 }
 
 model Account {
-    id  Int @id @default(autoincrement())
-    address String
-    contracts Contract[] // list of contracts deployed to the account
+  id        Int        @id @default(autoincrement())
+  address   String
+  contracts Contract[] // list of contracts deployed to the account
 }
 
 model Contract {
-    id  Int @id @default(autoincrement())
-    name String // name of the contract
+  id   Int    @id @default(autoincrement())
+  name String // name of the contract
 
-    // Contract is related to specific account
-    accountId Int
-    account Account @relation(fields: [accountId], references: [id])
+  // Contract is related to specific account
+  accountId Int
+  account   Account @relation(fields: [accountId], references: [id])
 
-    code ContractCode[]
-    tags Tag[]
+  code ContractCode[]
+  tags Tag[]
 
-    interactions Int @default(0) // number of interactions, we can read this from FlowGraph
+  interactions Int       @default(0) // number of interactions, we can read this from FlowGraph
+  Comment      Comment[]
 }
 
 model ContractCode {
-    id Int @id @default(autoincrement())
+  id Int @id @default(autoincrement())
 
-    // Code is related to specific Contract
-    contract Contract @relation(fields: [contractId], references: [id])
-    contractId Int // @relation attribute
+  // Code is related to specific Contract
+  contract   Contract @relation(fields: [contractId], references: [id])
+  contractId Int // @relation attribute
 
-    comments Comment[]
-    lastUpdated DateTime?
-    cadence String
+  comments    Comment[]
+  lastUpdated DateTime?
+  cadence     String
 }
 
 model Comment {
-    id  Int @id @default(autoincrement())
+  id Int @id @default(autoincrement())
 
-    // Code is related to specific Contract
-    contract Contract @relation(fields: [contractId], references: [id])
-    contractId Int // @relation attribute
+  // Code is related to specific Contract
+  contract   Contract @relation(fields: [contractId], references: [id])
+  contractId Int // @relation attribute
 
-    lineStart Int
-    lineEnd Int
-    content String
+  lineStart      Int
+  lineEnd        Int
+  content        String
+  ContractCode   ContractCode? @relation(fields: [contractCodeId], references: [id])
+  contractCodeId Int?
 }
 
 model Tag {
-    id  Int @id @default(autoincrement())
-    name String
+  id        Int        @id @default(autoincrement())
+  name      String
+  contracts Contract[]
 }
