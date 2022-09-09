@@ -39,7 +39,7 @@ model ContractCode {
 
   comments    Comment[]
   lastUpdated DateTime?
-  cadence     String
+  cadence     String    @db.LongText
 }
 
 model Comment {
