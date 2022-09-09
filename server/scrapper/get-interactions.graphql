@@ -1,5 +1,0 @@
-query Interactions{
-    contract(id: "A.abda6627c70c7f52.GeniaceNFT"){
-        interactionCount
-    }
-}
