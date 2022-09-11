@@ -16,44 +16,36 @@ model Account {
 }
 
 model Contract {
-  id   Int    @id @default(autoincrement())
-  name String // name of the contract
+  id Int @id @default(autoincrement())
 
-  // Contract is related to specific account
-  accountId Int
-  account   Account @relation(fields: [accountId], references: [id])
-
-  code ContractCode[]
-  tags Tag[]
-
-  interactions Int       @default(0) // number of interactions, we can read this from FlowGraph
-  Comment      Comment[]
+  name         String
+  code         ContractCode[] @relation("imports")
+  tags         Tag[]
+  ContractCode ContractCode[]
+  Account      Account?       @relation(fields: [accountId], references: [id])
+  accountId    Int?
+  interactions Int            @default(0)
 }
 
 model ContractCode {
-  id Int @id @default(autoincrement())
+  id         Int       @id @default(autoincrement())
+  Contract   Contract? @relation(fields: [contractId], references: [id])
+  contractId Int?
 
-  // Code is related to specific Contract
-  contract   Contract @relation(fields: [contractId], references: [id])
-  contractId Int // @relation attribute
-
+  cadence     String     @db.LongText
   comments    Comment[]
+  imports     Contract[] @relation("imports")
   lastUpdated DateTime?
-  cadence     String    @db.LongText
 }
 
 model Comment {
   id Int @id @default(autoincrement())
 
-  // Code is related to specific Contract
-  contract   Contract @relation(fields: [contractId], references: [id])
-  contractId Int // @relation attribute
-
   lineStart      Int
   lineEnd        Int
   content        String
   ContractCode   ContractCode? @relation(fields: [contractCodeId], references: [id])
-  contractCodeId Int?
+  contractCodeId Int
 }
 
 model Tag {
