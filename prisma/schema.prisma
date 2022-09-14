@@ -9,47 +9,53 @@ datasource db {
   referentialIntegrity = "prisma"
 }
 
-model Account {
-  id        Int        @id @default(autoincrement())
-  address   String
-  contracts Contract[] // list of contracts deployed to the account
-}
-
 model Contract {
-  id Int @id @default(autoincrement())
-
-  name         String
-  code         ContractCode[] @relation("imports")
+  id           Int       @id @default(autoincrement())
+  cadence      String    @db.LongText
+  interactions Int       @default(0)
+  comments     Comment[]
   tags         Tag[]
-  ContractCode ContractCode[]
-  Account      Account?       @relation(fields: [accountId], references: [id])
-  accountId    Int?
-  interactions Int            @default(0)
+
+  location  Location?
+  importsId Int?
 }
 
-model ContractCode {
-  id         Int       @id @default(autoincrement())
-  Contract   Contract? @relation(fields: [contractId], references: [id])
-  contractId Int?
+model Location {
+  contract   Contract @relation(fields: [contractId], references: [id])
+  contractId Int      @unique
 
-  cadence     String     @db.LongText
-  comments    Comment[]
-  imports     Contract[] @relation("imports")
-  lastUpdated DateTime?
+  name    String
+  address String
+
+  // Import related relations
+  import        Import? @relation(fields: [importName, importAddress], references: [name, address])
+  importName    String?
+  importAddress String?
+
+  @@id(name: "location", [name, address])
+}
+
+model Import {
+  name    String
+  address String
+  imports Location[]
+
+  @@id(name: "core", [name, address])
 }
 
 model Comment {
   id Int @id @default(autoincrement())
 
-  lineStart      Int
-  lineEnd        Int
-  content        String
-  ContractCode   ContractCode? @relation(fields: [contractCodeId], references: [id])
-  contractCodeId Int
+  lineStart  Int
+  lineEnd    Int
+  content    String
+  Contract   Contract? @relation(fields: [contractId], references: [id])
+  contractId Int?
 }
 
 model Tag {
-  id        Int        @id @default(autoincrement())
-  name      String
-  contracts Contract[]
+  id         Int       @id @default(autoincrement())
+  name       String
+  Contract   Contract? @relation(fields: [contractId], references: [id])
+  contractId Int?
 }
