@@ -21,7 +21,7 @@ model Contract {
 }
 
 model Location {
-  contract   Contract @relation(fields: [contractId], references: [id])
+  contract   Contract? @relation(fields: [contractId], references: [id])
   contractId Int      @unique
 
   name    String
