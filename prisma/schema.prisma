@@ -10,52 +10,35 @@ datasource db {
 }
 
 model Contract {
-  id           Int       @id @default(autoincrement())
-  cadence      String    @db.LongText
-  interactions Int       @default(0)
-  comments     Comment[]
+  id Int @id @default(autoincrement())
+
+  name         String
+  address      String
+  interactions Int        @default(0)
   tags         Tag[]
+  imports      Contract[] @relation("Imports")
+  importedBy   Contract[] @relation("Imports")
 
-  location  Location?
-  importsId Int?
+  code String @db.LongText
+  Comment  Comment[]
+  @@unique([name, address])
 }
 
-model Location {
-  contract   Contract? @relation(fields: [contractId], references: [id])
-  contractId Int      @unique
-
-  name    String
-  address String
-
-  // Import related relations
-  import        Import? @relation(fields: [importName, importAddress], references: [name, address])
-  importName    String?
-  importAddress String?
-
-  @@id(name: "location", [name, address])
-}
-
-model Import {
-  name    String
-  address String
-  imports Location[]
-
-  @@id(name: "core", [name, address])
-}
 
 model Comment {
   id Int @id @default(autoincrement())
 
-  lineStart  Int
-  lineEnd    Int
-  content    String
-  Contract   Contract? @relation(fields: [contractId], references: [id])
-  contractId Int?
+  lineStart Int
+  lineEnd   Int
+  content   String
+
+  contractCode   Contract? @relation(fields: [contractCodeId], references: [id])
+  contractCodeId Int?
 }
 
 model Tag {
-  id         Int       @id @default(autoincrement())
-  name       String
-  Contract   Contract? @relation(fields: [contractId], references: [id])
-  contractId Int?
+  id   Int    @id @default(autoincrement())
+  name String
+
+  contracts Contract[]
 }
