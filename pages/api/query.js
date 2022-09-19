@@ -10,11 +10,7 @@ export default async function handle(req, res) {
     },
     select: {
       name: true,
-      account: {
-        select: {
-          address: true,
-        },
-      },
+      address: true,
       tags: {
         select: {
           name: true,
