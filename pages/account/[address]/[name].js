@@ -33,7 +33,7 @@ export default function ContractName(props) {
   if (!contract) {
     return (
       <div>
-        <p>Can't find contract on this account with this address</p>
+        <p>Can&apost find contract on this account with this address</p>
         <p>
           Check
           <Link href={`/account/${address}`}>
