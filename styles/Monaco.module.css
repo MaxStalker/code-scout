@@ -1,0 +1,14 @@
+.test{
+    width: 100%;
+    height: 50vh;
+    resize: vertical;
+    overflow: auto;
+}
+
+.selected{
+    background-color: rgba(45, 220, 190, 0.25);
+    cursor: pointer;
+    text-decoration: underline;
+    font-weight: bold;
+    font-style: oblique;
+}

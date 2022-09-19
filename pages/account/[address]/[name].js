@@ -1,6 +1,10 @@
+import React, { useRef, useState } from "react";
 import prisma from "../../../lib/prisma";
 import Link from "next/link";
 import subStyles from "../../../styles/Subpage.module.css";
+import monacoStyles from "../../../styles/Monaco.module.css";
+import Editor from "@monaco-editor/react";
+import { configureCadence, CADENCE_LANGUAGE_ID } from "../../../lib/monaco";
 
 export async function getServerSideProps(context) {
   const { address, name } = context.query;
@@ -28,6 +32,42 @@ export async function getServerSideProps(context) {
 }
 
 export default function ContractName(props) {
+  const editorRef = useRef(null);
+  const [line, setCurrentLine] = useState(1);
+
+  function handleHash(editor, monaco) {
+    const { hash } = window.location;
+    if (/#L\d+(-L\d+)?/.test(hash)) {
+      const [start, end] = hash
+        .slice(1)
+        .split("-")
+        .map((item) => parseInt(item.slice(1)));
+
+      const range = new monaco.Range(start, 1, end || start, 1);
+      editor.revealPositionInCenter({ lineNumber: start, column: 1 });
+      editor.deltaDecorations(
+        [],
+        [
+          {
+            range,
+            options: {
+              isWholeLine: true,
+              className: monacoStyles.selected,
+            },
+          },
+        ]
+      );
+    }
+  }
+
+  function handleEditorDidMount(editor, monaco) {
+    editorRef.current = editor;
+
+    configureCadence(monaco);
+    handleHash(editor, monaco);
+    console.log("succesfully selected");
+  }
+
   const { contract } = props;
 
   if (!contract) {
@@ -53,7 +93,13 @@ export default function ContractName(props) {
         <a className={subStyles.link}>{address}</a>
       </Link>
       <p>{name}</p>
-      <p>{code}</p>
+      <Editor
+        className={monacoStyles.test}
+        language={CADENCE_LANGUAGE_ID}
+        line={line}
+        defaultValue={code}
+        onMount={handleEditorDidMount}
+      />
     </div>
   );
 }
