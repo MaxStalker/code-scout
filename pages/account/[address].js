@@ -1,5 +1,6 @@
-import { PrismaClient } from "@prisma/client";
+// import { PrismaClient } from "@prisma/client";
 import styles from "../../styles/Subpage.module.css";
+
 
 export async function getServerSideProps(context) {
   const { address } = context.query;
@@ -32,12 +33,13 @@ export async function getServerSideProps(context) {
   };
 }
 
+
 export default function AccountAddress(props) {
   const { account, address } = props;
   const { contracts } = account;
 
   if (!account) {
-    return <p>Can't find account with this address</p>;
+    return <p>Can&apost find account with this address</p>;
   }
 
   const { pill } = styles;
@@ -45,10 +47,9 @@ export default function AccountAddress(props) {
     <>
       <h1>{address}</h1>
       {contracts.map((contract) => {
-        console.log(contract);
         const { name, tags } = contract;
         return (
-          <div>
+          <div key={`${name}-${address}`}>
             <p>{name}</p>
             {tags.map((tag) => {
               const { name } = tag;

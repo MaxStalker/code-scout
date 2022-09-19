@@ -4,22 +4,23 @@ import subStyles from "../styles/Subpage.module.css";
 import fetcher from "../lib/fetcher";
 import { useEffect, useRef, useState } from "react";
 
+
+let timer;
+const fetchContracts = (setContracts) => {
+  clearTimeout(timer);
+  setContracts([]);
+  timer = setTimeout(async () => {
+    const contracts = await fetcher(`/api/query?keyword=${keyword}`);
+    setContracts(contracts);
+  }, 150);
+};
+
 export default function Home() {
-  const timer = useRef(null);
   const [keyword, setKeyword] = useState("");
   const [contracts, setContracts] = useState([]);
 
-  const fetchContracts = () => {
-    clearTimeout(timer.current);
-    setContracts([]);
-    timer.current = setTimeout(async () => {
-      const contracts = await fetcher(`/api/query?keyword=${keyword}`);
-      setContracts(contracts);
-    }, 150);
-  };
-
   useEffect(() => {
-    fetchContracts();
+    fetchContracts(setContracts);
   }, [keyword]);
 
   const { container, link } = styles;

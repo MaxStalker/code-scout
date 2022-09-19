@@ -1,6 +1,7 @@
 import { PrismaClient } from "@prisma/client";
 import styles from "../../styles/Subpage.module.css";
 
+
 export async function getServerSideProps(context) {
   const { keyword } = context.query;
 
@@ -40,10 +41,15 @@ export async function getServerSideProps(context) {
   };
 }
 
-export default function Query(props) {
-  const { keyword, contracts } = props;
+export default function Query() {
+  const { keyword, contracts } = {
+    keyword: "test",
+    contracts: [
+
+    ]
+  };
   if (!contracts) {
-    return <p>Can't find anything...</p>;
+    return <p>Can&apost find anything...</p>;
   }
 
   const { pill } = styles;
