@@ -78,7 +78,7 @@ export default function ContractName(props) {
         <p>Can&apost find contract on this account with this address</p>
         <p>
           Check
-          <Link href={`/account/${address}`}>
+          <Link href={`/${address}`}>
             <a className={subStyles.link}>{address}</a>
           </Link>{" "}
           for other available contracts

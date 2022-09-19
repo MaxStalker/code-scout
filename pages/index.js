@@ -49,11 +49,11 @@ export default function Home() {
           return (
             <div key={`${name}-${address}`} className="">
               <p>
-                <Link href={`/account/${address}/${name}`}>
+                <Link href={`/${address}/${name}`}>
                   <a className={subStyles.link}>{name}</a>
                 </Link>
                 deployed at{" "}
-                <Link href={`/account/${address}`}>
+                <Link href={`/${address}`}>
                   <a className={subStyles.link}>{address}</a>
                 </Link>
               </p>
