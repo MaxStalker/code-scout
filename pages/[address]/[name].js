@@ -91,7 +91,7 @@ export default function ContractName(props) {
 
   return (
     <div>
-      <Link href={`/account/${address}`}>
+      <Link href={`/${address}`}>
         <a className={subStyles.link}>{address}</a>
       </Link>
       <p>{name}</p>

@@ -43,7 +43,7 @@ export default function AccountAddress(props) {
         const { name, address } = contract;
         return (
           <div key={`${name}-${address}`}>
-            <Link href={`/account/${address}/${name}`}>
+            <Link href={`/${address}/${name}`}>
               <a className={subStyles.link}>{name}</a>
             </Link>
           </div>
