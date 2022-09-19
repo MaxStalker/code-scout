@@ -1,10 +1,12 @@
 import React, { useRef, useState } from "react";
-import prisma from "../../../lib/prisma";
-import Link from "next/link";
-import subStyles from "../../../styles/Subpage.module.css";
-import monacoStyles from "../../../styles/Monaco.module.css";
 import Editor from "@monaco-editor/react";
-import { configureCadence, CADENCE_LANGUAGE_ID } from "../../../lib/monaco";
+import Link from "next/link";
+
+import prisma from "../../lib/prisma";
+import { configureCadence, CADENCE_LANGUAGE_ID } from "../../lib/monaco";
+
+import subStyles from "../../styles/Subpage.module.css";
+import monacoStyles from "../../styles/Monaco.module.css";
 
 export async function getServerSideProps(context) {
   const { address, name } = context.query;

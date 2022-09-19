@@ -1,7 +1,7 @@
-import prisma from "../../../lib/prisma";
+import prisma from "../../lib/prisma";
 import Link from "next/link";
-import styles from "../../../styles/Home.module.css";
-import subStyles from "../../../styles/Subpage.module.css";
+import styles from "../../styles/Home.module.css";
+import subStyles from "../../styles/Subpage.module.css";
 
 export async function getServerSideProps(context) {
   const { address } = context.query;
