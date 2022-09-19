@@ -1,7 +1,7 @@
 import prisma from "../../lib/prisma";
 
 export default async function handle(req, res) {
-  const {keyword} = req.query
+  const { keyword } = req.query;
   const contracts = await prisma.contract.findMany({
     where: {
       name: {
