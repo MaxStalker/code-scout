@@ -56,13 +56,17 @@ export default function Home() {
         contracts.map((contract) => {
           const { name, address, tags } = contract;
           return (
-            <Link href={`/${address}/${name}`}>
-              <div key={`${name}-${address}`} className={searchResult}>
+            <Link href={`/${address}/${name}`} key={`${name}-${address}`}>
+              <div className={searchResult}>
                 <p className={"text-big font-bold text-slate-600"}>{name}</p>
                 <p className={"text-big"}>Imported by: --</p>
                 <div className={tagContainer}>
                   {tags.map((name) => {
-                    return <span className={tag} key={name}>{name}</span>;
+                    return (
+                      <span className={tag} key={name}>
+                        {name}
+                      </span>
+                    );
                   })}
                 </div>
               </div>
