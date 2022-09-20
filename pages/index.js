@@ -1,8 +1,6 @@
 import Link from "next/link";
-import styles from "../styles/Home.module.css";
-import subStyles from "../styles/Subpage.module.css";
 import fetcher from "../lib/fetcher";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import Header from "../components/Header";
 
 let timer;
@@ -36,7 +34,6 @@ export default function Home() {
     }
   }, [keyword]);
 
-  const { container, link } = styles;
   const shallRenderList = !loading;
 
   const inputClass =
@@ -65,7 +62,7 @@ export default function Home() {
                 <p className={"text-big"}>Imported by: --</p>
                 <div className={tagContainer}>
                   {tags.map((name) => {
-                    return <span className={tag}>{name}</span>;
+                    return <span className={tag} key={name}>{name}</span>;
                   })}
                 </div>
               </div>
