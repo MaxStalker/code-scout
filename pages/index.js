@@ -18,13 +18,7 @@ const fetchContracts = ({ setContracts, setLoading }, keyword) => {
 export default function Home() {
   const [loading, setLoading] = useState(false);
   const [keyword, setKeyword] = useState("");
-  const [contracts, setContracts] = useState([
-    {
-      name: "TopShot",
-      address: `0x${"1234".padStart(16, 0)}`,
-      tags: ["FT", "Interface"],
-    },
-  ]);
+  const [contracts, setContracts] = useState([]);
 
   useEffect(() => {
     if (keyword !== "") {
@@ -34,7 +28,7 @@ export default function Home() {
     }
   }, [keyword]);
 
-  const shallRenderList = !loading;
+  const shallRenderList = keyword !=="" && !loading;
 
   const inputClass =
     "shadow-md bg-gray-30 border border-gray-300 text-gray-900 text-xl rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 mb-2";
