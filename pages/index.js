@@ -32,7 +32,6 @@ export default function Home() {
 
   const inputClass =
     "shadow-md bg-gray-30 border border-gray-300 text-gray-900 text-xl rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 mb-2";
-  const searchResult = `grid grid-cols-3 p-2 items-center bg-zinc-100 rounded-md border-zinc-300 border mb-1 hover:bg-emerald-100 hover:border-emerald-300 hover:cursor-pointer`;
   const tagContainer = `flex justify-end gap-1`;
   const tag = `flex justify-center items-center px-2 py-1 bg-emerald-300 rounded-md text-white font-bold`;
   return (

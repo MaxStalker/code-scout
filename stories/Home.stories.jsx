@@ -1,5 +1,3 @@
-// /stories/pages/home.stories.jsx
-
 import Home from "../pages/index";
 
 export default {
