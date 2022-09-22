@@ -1,7 +1,11 @@
 import Link from "next/link";
-import fetcher from "../lib/fetcher";
 import { useEffect, useState } from "react";
+import { useRouter } from "next/router";
+
 import Header from "../components/Header";
+import SearchResult from "../components/SearchResult";
+
+import fetcher from "../lib/fetcher";
 
 let timer;
 const fetchContracts = ({ setContracts, setLoading }, keyword) => {
@@ -15,10 +19,41 @@ const fetchContracts = ({ setContracts, setLoading }, keyword) => {
   }, 350);
 };
 
-export default function Home() {
+function getParams(search) {
+  let noQuestion = search[0] === "?" ? search.slice(1) : search;
+  return noQuestion
+    .split("&")
+    .map((item) => item.split("="))
+    .reduce((acc, item) => {
+      const [key, value] = item;
+      acc[key] = value;
+      return acc;
+    }, {});
+}
+
+export async function getServerSideProps(context) {
+  const { keyword } = context.query;
+  return {
+    props: {
+      keyword: keyword || "",
+    },
+  };
+}
+
+export default function Home(props) {
+  const { keyword: initialKeyword } = props;
+  const router = useRouter();
+
+  const keywordInitial = "TopShot";
   const [loading, setLoading] = useState(false);
-  const [keyword, setKeyword] = useState("");
+  const [keyword, setKeyword] = useState(initialKeyword);
   const [contracts, setContracts] = useState([]);
+
+  useEffect(() => {
+    if (keyword !== "") {
+      router.push(`/?keyword=${keyword}`, undefined, { shallow: true });
+    }
+  }, [keyword]);
 
   useEffect(() => {
     if (keyword !== "") {
@@ -26,20 +61,23 @@ export default function Home() {
     } else {
       setLoading(false);
     }
-  }, [keyword]);
+  }, [router.query.keyword]);
 
-  const shallRenderList = keyword !=="" && !loading;
+  useEffect(() => {
+    // The counter changed!
+  }, [router.query.counter]);
+
+  const shallRenderList = keyword !== "" && !loading;
 
   const inputClass =
     "shadow-md bg-gray-30 border border-gray-300 text-gray-900 text-xl rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 mb-2";
-  const tagContainer = `flex justify-end gap-1`;
-  const tag = `flex justify-center items-center px-2 py-1 bg-emerald-300 rounded-md text-white font-bold`;
   return (
     <div className="container mx-auto p-8">
       <Header />
       <input
         className={inputClass}
         type="text"
+        value={keyword}
         onChange={(data) => {
           setKeyword(data.target.value);
         }}
@@ -47,22 +85,12 @@ export default function Home() {
       {loading && <p>Loading...</p>}
       {shallRenderList &&
         contracts.map((contract) => {
-          const { name, address, tags } = contract;
+          const { name, address } = contract;
           return (
             <Link href={`/${address}/${name}`} key={`${name}-${address}`}>
-              <div className={searchResult}>
-                <p className={"text-big font-bold text-slate-600"}>{name}</p>
-                <p className={"text-big"}>Imported by: --</p>
-                <div className={tagContainer}>
-                  {tags.map((name) => {
-                    return (
-                      <span className={tag} key={name}>
-                        {name}
-                      </span>
-                    );
-                  })}
-                </div>
-              </div>
+              <a>
+                <SearchResult {...contract} />
+              </a>
             </Link>
           );
         })}

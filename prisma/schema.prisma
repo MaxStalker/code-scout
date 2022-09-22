@@ -19,11 +19,11 @@ model Contract {
   imports      Contract[] @relation("Imports")
   importedBy   Contract[] @relation("Imports")
 
-  code String @db.LongText
-  Comment  Comment[]
+  code    String    @db.LongText
+  Comment Comment[]
+
   @@unique([name, address])
 }
-
 
 model Comment {
   id Int @id @default(autoincrement())

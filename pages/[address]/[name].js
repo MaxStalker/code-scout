@@ -7,6 +7,7 @@ import { configureCadence, CADENCE_LANGUAGE_ID } from "../../lib/monaco";
 
 import subStyles from "../../styles/Subpage.module.css";
 import monacoStyles from "../../styles/Monaco.module.css";
+import Header from "../../components/Header";
 
 export async function getServerSideProps(context) {
   const { address, name } = context.query;
@@ -90,7 +91,8 @@ export default function ContractName(props) {
   const { code, address, name } = contract;
 
   return (
-    <div>
+    <div className="container mx-auto p-8">
+      <Header />
       <Link href={`/${address}`}>
         <a className={subStyles.link}>{address}</a>
       </Link>

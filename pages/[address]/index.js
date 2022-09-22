@@ -1,16 +1,17 @@
 import prisma from "../../lib/prisma";
 import Link from "next/link";
-import styles from "../../styles/Home.module.css";
 import subStyles from "../../styles/Subpage.module.css";
+import Header from "../../components/Header";
+import React from "react";
 
 export async function getServerSideProps(context) {
   const { address } = context.query;
 
   const contracts = await prisma.contract.findMany({
     where: {
-      address:{
-        contains: address
-      }
+      address: {
+        contains: address,
+      },
     },
     select: {
       name: true,
@@ -31,13 +32,12 @@ export async function getServerSideProps(context) {
   };
 }
 
-
 export default function AccountAddress(props) {
   const { contracts, address } = props;
 
-  const { pill } = styles;
   return (
-    <>
+    <div className="container mx-auto p-8">
+      <Header />
       <h1>{address}</h1>
       {contracts.map((contract) => {
         const { name, address } = contract;
@@ -49,6 +49,6 @@ export default function AccountAddress(props) {
           </div>
         );
       })}
-    </>
+    </div>
   );
 }
