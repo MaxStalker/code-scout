@@ -21,6 +21,7 @@ model Contract {
 
   code    String    @db.LongText
   Comment Comment[]
+  github String?
 
   @@unique([name, address])
 }
